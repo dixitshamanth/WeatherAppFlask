@@ -1,0 +1,323 @@
+.weather-form {
+  margin-top:60px;
+  margin-left: auto;
+  margin-right: auto;
+  border-color: lightgray;
+  border-width: 15px;
+  border-style: solid;
+  height: 450px;
+  width: 600px;
+  background-color: white;
+}
+
+body {
+  background-color: lightgrey;
+  margin: 0px;
+  font-family: Lato;
+}
+select {
+  border-color: lightgray;
+  border-width: 1px;
+  border-style: solid;
+  width: 275px;
+}
+.tab {
+  display: inline-block;
+  margin-left: 30px;
+}
+.required-field::before {
+  content: "*";
+  color: red;
+}
+.cloud {
+  background-image: url("/static/Images/banner.jpg");
+  height: 135px;
+  background-repeat: no-repeat;
+  /* background-size: cover; */
+  background-position: 0px -60px;
+}
+
+.cloud h2 {
+  color: #63625d;
+  padding-top: 30px;
+  padding-left: 35px;
+  margin-top: 0px;
+  font-family: Lato;
+  font-size: x-large;
+}
+
+.cloud p {
+  color: #63625d;
+  padding-top: 5px;
+  padding-left: 35px;
+  font-family: Lato;
+  font-size: large;
+}
+
+.weather {
+  padding: 20px 35px;
+}
+
+.blue-button {
+  padding: 15px 32px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #496cac;
+  border: none;
+  box-shadow: 0 5px #495cac;
+}
+
+.blue-button:hover{
+  background-color: #587bbd;
+}
+
+
+
+.yellow-button {
+  margin-top: 20px;
+  padding: 15px 32px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #ffb80d;
+  border: none;
+  box-shadow: 0 5px #ffa80d;
+}
+
+.yellow-button:hover{
+  background-color: #e7ac21;
+}
+
+
+
+#todaycard {
+  width: 100%;
+  display: block;
+  position: absolute;
+  top: 550px;
+  height: 600px;
+}
+
+.card-container {
+  background-color: white;
+  width: 53%;
+  height: 63%;
+  margin: auto;
+}
+
+.card-container:hover {
+  box-shadow: 0 2px 15px rgba(33, 33, 33);
+}
+
+.mapping {
+  width: 30%;
+  float: left;
+  height: 80%;
+  text-align: center;
+}
+
+#addressDeets {
+  margin-left: 20px;
+  font-size: x-large;
+}
+
+#temperature {
+  /* margin-top: 40px; */
+  width: 70%;
+  float: left;
+  text-align: center;
+  font-size: 105px;
+  font-weight: 400;
+  height: 100%;
+  position: relative;
+  margin-top:6px;
+  margin-bottom: 0px;
+}
+
+#tempdiv {
+  width: 100%;
+  text-align: center;
+  margin: 0px;
+  color: grey;
+}
+
+.iconcontainer {
+  width: 100%;
+  height: 35%;
+  margin-top: 10px;
+  color: grey;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 35px;
+  /* width:75%; */
+  font-family: Lato;
+}
+
+th {
+  background-color: #4f6ead;
+  color: black;
+}
+
+th,
+td {
+  width: 225px;
+  text-align: center;
+  padding: 5px;
+}
+
+td{
+  cursor:pointer;
+}
+
+tr{
+  background-color: white;
+  height: 55px;
+  
+}
+
+.daily-header{
+  margin: auto;
+  width: 550px;
+  font-family: Lato;
+  font-weight: 300;
+  font-size: 40px;
+}
+
+.gradient-card{
+  width: 535px;
+  height: 420px;
+  font-size: 20px;
+  background: linear-gradient(white, #334B78);
+  margin: 30px auto 30px auto;
+  font-family: Lato;
+}
+
+.gradient-card:hover {
+  box-shadow: 0 2px 15px rgba(33, 33, 33);
+}
+
+.top-container{
+  height: 40%;
+  color: #334B78;
+  margin: 20px;
+  font-size: 25px;
+  /* font-weight: 800; */
+}
+
+.topleft-container{
+  width: 66.66%;
+  float: left;
+  text-align: left;
+}
+
+.icon-daily{
+  height: 100%;
+  width: 33.33%;
+  float: left;
+  margin-top: 20px;
+}
+
+.detail-row{
+  width:100%;
+  height: 30px;
+  color: white;
+  font-weight: bolder;
+}
+
+.detail-label{
+  width: 60%;
+  height: 100%;
+  float:left;
+  text-align: right;
+}
+
+.detail-label p{
+  display:inline-block;
+  margin: unset;
+  font-size: 18px;
+
+}
+
+.detail-value{
+  width:40%;
+  height: 100%;
+  float: left;
+  text-align: left;
+}
+
+.detail-value p{
+  margin:unset;
+  font-size: 21px;
+}
+
+#dailycard{
+  position:absolute;
+  top:20px;
+  width: 100%;
+  text-align: center;
+}
+
+.bluetopleft{
+  font-weight:500;
+  width: 100%;
+  margin-top: 18px;
+}
+
+.highcharts-figure,
+.highcharts-data-table table {
+  min-width: 310px;
+  max-width: 75%;
+  margin: 1em auto;
+}
+
+#container {
+  height: 400px;
+}
+
+.highcharts-data-table table {
+  font-family: Verdana, sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #EBEBEB;
+  margin: 10px auto;
+  text-align: center;
+  width: 100%;
+  max-width: 75%;
+}
+
+.highcharts-data-table caption {
+  padding: 1em 0;
+  font-size: 1.2em;
+  color: #555;
+}
+
+.highcharts-data-table th {
+  font-weight: 600;
+  padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+  padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+  background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+  background: #f1f7ff;
+}

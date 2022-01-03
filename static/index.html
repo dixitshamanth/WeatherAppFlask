@@ -1,0 +1,355 @@
+<html>
+    <head>
+        <title>WEATHER</title>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="/static/weather.js"></script>
+        <link rel="stylesheet" href="/static/styles.css">
+        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src = "https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/highcharts-more.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/windbarb.js"></script>
+        <script src="https://code.highcharts.com/modules/pattern-fill.js"></script>
+        <script src="https://code.highcharts.com/modules/data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+
+
+        <div style="font-family: Lato" class="weather-form">
+        <div class="cloud">
+            <h2>Weather Search</h2>
+            <p>Fill out the form to get weather info!</p>
+        </div>
+        <form id="search-form" class="weather" action="/" method="GET" role="form">
+            <label style="color:#496cac; font-size: 17px;" for="address">Street<span class="required-field"></span></label><br>
+            <input style="margin-top: 5px;width: 100%; height:6%; border-color: lightgray; border-width: 1px;border-style: solid;"  type="text" id="address" name="address" required/><br><br>
+            <label style="color:#496cac; font-size: 17px;" for="city">City<span class="required-field"></span></label><span class="tab"></span><span class="tab"></span><label style="margin-left: 136px; color:#496cac; font-size: 17px;" for="state">&nbsp;State<span class="required-field"></span></label><br>
+            <input style="margin-top:5px; display: inline-block; height:6%; border-color: lightgray; border-width: 1px;border-style: solid;" type="text" id="city" name="city" size="25" required/>
+                <select style="margin-top:5px; float:right; width:55%; height:6%; border-color: lightgray; border-width: 1px;border-style: solid;" name="state" id="state" required>
+                    <option value="" id="not_to_be_here">Select your state</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="DC">District Of Columbia</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                </select>
+            <br><br><!--input style="margin-left: 10px;" type="text" id="state" name="state" required-->
+            <hr style="background-color:#496cac; border-color: #496cac;">
+            <span style="font-size:larger; color:#496cac">Want us to auto-detect your location? Check here</span><input type="checkbox" name="autoLocation" id="autoLocation"><br>
+            <input class="blue-button" type="submit" id="address-submit" value="SUBMIT"/>
+            <input type="reset" id="reset-button" class="yellow-button" type="button" onclick="clearAll()" value="CLEAR">
+        </form>
+        </div>
+
+        <div id="edwatCard" style="display:none;background-color: white;width: 39%;height: 7%;margin: 25px auto auto auto; text-align: center;">
+            <p style="color:#496cac;margin:unset; padding-top: 10px;">No records have been found! (API Limit reached. Try again later)</p>
+        </div>
+
+        <!-- style="display:none;" -->
+         <div style="display:none; font-family: Lato;" id="todaycard" >
+            <div class="card-container">
+                <div>
+                    <p style="padding-top:15px; padding-left: 15px; color:grey; font-family: Arial, Helvetica, sans-serif; font-size: x-large;" id="addressDeeets">2674, Magnolia Ave</p>
+                </div>
+                <div style="width: 100%; height: 40%">
+                    <div class="mapping">
+                        <img id="mappedimg" style="height: 100%;"/>
+                        <p id= "weatherdesc" style="color: darkgrey; margin: 0px;"></p>
+                    </div>
+                    <div id="tempdiv">
+                        <p id="temperature"></p>
+                    </div>
+                </div>
+                <div class="iconcontainer">
+                    <!-- 100 % width divided by 6 icons width 16.6 don't change-->
+                    <div style="margin-top: 0px; float: left; text-align: center; width:16.66%; ">
+                        <div>Humidity</div>
+                        <div style="margin-top: 15px;">
+                        <img src="/static/Images/humidity.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <div id="humidity" style="margin-top: 10px;"></div>
+                    </div>
+                    <div style="float: left; text-align: center;width:16.66%;">
+                        <div>Pressure</div>
+                        <div style="margin-top: 15px;">
+                            <img src="/static/Images/Pressure.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <div id="pressure" style="margin-top: 10px;"></div>
+                    </div>
+                    <div style="float: left; text-align: center;width:16.66%;  ">
+                        <div>Wind Speed</div>
+                        <div style="margin-top: 15px;">
+                            <img src="/static/Images/Wind_Speed.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <div id="windspeed" style="margin-top: 10px;"></div>
+                    </div>
+                    <div style="float: left; text-align: center;width:16.66%;  ">
+                        <div>Visibility</div>
+                        <div style="margin-top: 15px;">
+                            <img src="/static/Images/Visibility.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <div id="visibility" style="margin-top: 10px;"></div>
+                    </div>
+                    <div style="float: left; text-align: center; width:16.66%; ">
+                        <div>Cloud Cover</div>
+                        <div style="margin-top: 15px;">
+                            <img src="/static/Images/Cloud_Cover.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <div id="cloudcover" style="margin-top: 10px;"></div>
+                    </div>
+                    <div style="float: left; text-align: center; width:16.66%; ">
+                        <div>UV Level</div>
+                        <div style="margin-top: 15px;">
+                            <img src="/static/Images/UV_Level.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <div id="uvlevel" style="margin-top: 10px;"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div style="width:25%; height: 100%; float: left;"></div> 
+            style="display:none;">-->
+            <table id="table15" style="display:none;">
+            <tr >
+                <th>Date</th>
+                <th>Status</th>
+                <th>Temp High</th>
+                <th>Temp Low</th>
+                <th>Wind speed</th>
+            </tr>
+            <tr onclick="blueCard(0)">
+                <td>Alfreds Futterkiste</td>
+                <td>Status placeholder</td>
+                <td>Germany</td>
+                <td>Germany</td>
+                <td>Germany</td>
+            </tr>
+            <tr onclick="blueCard(1)">
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+                <td>Mexico</td>
+                <td>Germany</td>
+            </tr>
+            <tr onclick="blueCard(2)">
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+                <td>Mexico</td>
+                <td>Germany</td>
+            </tr>
+            <tr onclick="blueCard(3)">
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+                <td>Mexico</td>
+                <td>Germany</td>
+            </tr>
+            <tr onclick="blueCard(4)">
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+                <td>Mexico</td>
+                <td>Germany</td>
+            </tr>
+            <tr onclick="blueCard(5)">
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+                <td>Mexico</td>
+                <td>Germany</td>
+            </tr>
+            <tr onclick="blueCard(6)">
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+                <td>Mexico</td>
+                <td>Germany</td>
+            </tr>
+            <tr onclick="blueCard(7)">
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+                <td>Mexico</td>
+                <td>Germany</td>
+            </tr>
+            <tr onclick="blueCard(8)">
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+                <td>Mexico</td>
+                <td>Germany</td>
+            </tr>
+            <tr onclick="blueCard(9)">
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+                <td>Mexico</td>
+                <td>Germany</td>
+            </tr>
+            <tr onclick="blueCard(10)">
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+                <td>Mexico</td>
+                <td>Germany</td>
+            </tr>
+            <tr onclick="blueCard(11)">
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+                <td>Mexico</td>
+                <td>Germany</td>
+            </tr>
+            <tr onclick="blueCard(12)">
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+                <td>Mexico</td>
+                <td>Germany</td>
+            </tr>
+            <tr onclick="blueCard(13)">
+                <td>PlaceHolder for Nth Day data</td>
+                <td>No data from tomorrow.io</td>
+                <td>No data</td>
+                <td>No data</td>
+                <td>No data</td>
+            </tr>
+            <tr id="last2Row" onclick="blueCard(14)">
+                <td>PlaceHolder for Nth Day data</td>
+                <td>No data from tomorrow.io</td>
+                <td>No data</td>
+                <td>No data</td>
+                <td>No data</td>
+            </tr>
+            <tr id="last1Row" onclick="blueCard(15)">
+                <td>PlaceHolder for Nth Day data</td>
+                <td>No data from tomorrow.io</td>
+                <td>No data</td>
+                <td>No data</td>
+                <td>No data</td>
+            </tr>
+            </table>
+        </div>
+
+        <div id="dailycard" style="display:none; position: absolute; top:570px">
+            <div class ="daily-header">Daily Weather Details</div>
+            <div class="gradient-card">
+                <div class="top-container">
+                    <div class="topleft-container" >
+                        <div class="bluetopleft" id="blueday" style="font-weight:600;width: 100%; margin-top: 18px;"> Thursday, 7th October</div>
+                        <div class="bluetopleft" id="blueweather" style="font-weight:600;width: 100%; margin-top: 18px;"> Weather placeholder</div>
+                        <div class="bluetopleft" id="bluetemp" style="width: 100%;font-weight:600;font-size: 35px; margin-top: 18px;"> Temperature placeholder </div>
+                    </div>
+                    <div class="icon-daily"><img id="blueicon" style="height: 80%"></div>
+                </div>
+                <div class="detail-row" style="margin-top: 35px;">
+                    <div class="detail-label">
+                        <p>Precipitation:&nbsp;</p>
+                    </div>
+                    <div class="detail-value" id="blueprecipitation">
+                        <p> Value placeholder</p>
+                    </div>
+                </div>
+                <div class="detail-row" >
+                    <div class="detail-label">
+                        <p>Chance of Rain:&nbsp;</p> 
+                    </div>
+                    <div class="detail-value" id="bluechanceofrain" >
+                        <p> Value placeholder</p></div>
+                    </div>
+                <div class="detail-row" >
+                    <div class="detail-label">
+                        <p>Wind Speed:&nbsp;</p> 
+                    </div>
+                    <div class="detail-value" id="bluewindspeed">
+                        <p> Value placeholder</p>
+                    </div> 
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">
+                        <p>Humidity:&nbsp;</p> 
+                    </div>
+                    <div class="detail-value" id="bluehumidity">
+                        <p> Value placeholder</p>
+                    </div>                
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">
+                        <p>Visibility:&nbsp;</p> 
+                    </div>
+                    <div class="detail-value" id="bluevisibility">
+                        <p> Value placeholder</p>
+                    </div>                
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">
+                        <p >Sunrise/Sunset:&nbsp;</p> 
+                    </div>
+                    <div class="detail-value" id="bluesunrise" >
+                        <p> 3AM / 4PM change</p>
+                    </div>                
+                </div>
+            </div>
+        
+        
+            <div class ="daily-header">Weather Charts</div>
+            <div id="arrow" style="text-align: center;"><a href="#arrow"><img style="width: 4%" src="/static/Images/point-down.png" onclick="showCharts()"></a></div>
+            <figure class="highcharts-figure">
+            <div id="container" style="display:none;"></div>
+            <div id="container2" style="margin-top: 50px; display:none;"></div>
+            </figure>
+        </div>
+        
+    </div> 
+
+</body>
+</html>
